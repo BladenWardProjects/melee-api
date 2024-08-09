@@ -13,5 +13,3 @@
 - [ ] Add a changelog
 - [ ] Deploy
 - [ ] Write a blog post
-
-## Done

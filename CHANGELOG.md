@@ -8,4 +8,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Initial API release (v0.0.1)
-- Add base documentation
