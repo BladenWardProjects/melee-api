@@ -1,6 +1,9 @@
 package main
 
-import "github.com/labstack/echo"
+import (
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+)
 
 type Server struct {
 	listenAddr string
@@ -14,6 +17,10 @@ func NewServer(listenAddr string) *Server {
 
 func (s *Server) Start() error {
 	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(200, "Hello, World!")
 	})
