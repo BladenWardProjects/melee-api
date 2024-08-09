@@ -4,6 +4,7 @@
 - [ ] Add a license
 - [ ] Add CI
 - [ ] Write tests
+- [ ] setup a mock for development
 - [ ] Flesh out schema
 - [ ] Write out json data or automate it
 - [ ] Add a CLI?
