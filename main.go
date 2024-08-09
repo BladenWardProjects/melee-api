@@ -3,11 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 )
 
 func main() {
-	listenAddr := flag.String("listen", ":6666", "Listen address")
+	listenAddr := flag.String("listen", ":3030", "Listen address")
 	flag.Parse()
 
-	fmt.Println("Listening on", *listenAddr)
+	s := NewServer(*listenAddr)
+
+	fmt.Println("Listening on", s.listenAddr)
+	log.Fatal(s.Start())
 }
