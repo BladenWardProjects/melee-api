@@ -1,0 +1,271 @@
+{
+    "name": "Falco",
+    "weight": 80,
+    "gravity": 0.17,
+    "walk_speed": 1.4,
+    "fall_speed": 3.1,
+    "fastfall_speed": 5,
+    "dash_speed": 1.9,
+    "run_speed": 1.5,
+    "air_speed": 0.02,
+    "air_accel": 0.05,
+    "jump_height": 29,
+    "double_jump_height": 26.7,
+    "short_hop_height": 11.58,
+    "traction": 0.83,
+    "max_galint": 13,
+    "jump_squat": 5,
+    "walljump": true,
+    "moves": [
+        {
+            "ground": [
+                {
+                    "name": "jab",
+                    "active_start": 2,
+                    "active_end": 3,
+                    "frames": 15,
+                    "shield_stun": 3,
+                    "damage": [3]
+                },
+                {
+                    "name": "jab2",
+                    "active_start": 2,
+                    "active_end": 3,
+                    "frames": 17,
+                    "shield_stun": 2,
+                    "damage": [2]
+                },
+                {
+                    "name": "jab3",
+                    "active_start": 4,
+                    "active_end": 8,
+                    "frames": 21,
+                    "shield_stun": 4,
+                    "damage": [5]
+                },
+                {
+                    "name": "forward_tilt",
+                    "active_start": 5,
+                    "active_end": 7,
+                    "frames": 32,
+                    "shield_stun": 6,
+                    "damage": [9]
+                },
+                {
+                    "name": "up_tilt",
+                    "active_start": 4,
+                    "active_end": 12,
+                    "frames": 30,
+                    "iasa_frame": 30,
+                    "shield_stun": 5,
+                    "damage": [8]
+                },
+                {
+                    "name": "down_tilt",
+                    "active_start": 5,
+                    "active_end": 8,
+                    "frames": 34,
+                    "shield_stun": 6,
+                    "damage": [8, 9]
+                },
+                {
+                    "name": "dash_attack",
+                    "active_start": 6,
+                    "active_end": 25,
+                    "frames": 48,
+                    "iasa_frame": 38,
+                    "shield_stun": 6,
+                    "damage": [9, 7]
+                },
+                {
+                    "name": "forward_smash",
+                    "active_start": 12,
+                    "active_end": 16,
+                    "frames": 41,
+                    "shield_stun": 10,
+                    "damage": [18, 11]
+                },
+                {
+                    "name": "up_smash",
+                    "active_start": 9,
+                    "active_end": 11,
+                    "frames": 39,
+                    "shield_stun": 8,
+                    "damage": [15]
+                },
+                {
+                    "name": "down_smash",
+                    "active_start": 5,
+                    "active_end": 14,
+                    "frames": 37,
+                    "shield_stun": 9,
+                    "damage": [16, 12]
+                }
+            ]
+        },
+        {
+            "aerial": [
+                {
+                    "name": "neutral_air",
+                    "active_start": 3,
+                    "active_end": 32,
+                    "frames": 45,
+                    "shield_stun": 7,
+                    "damage": [12, 8],
+                    "landing_lag": 16,
+                    "lcancel_lag": 8,
+                    "auto_cancel": 36
+                },
+                {
+                    "name": "forward_air",
+                    "active_start": 18,
+                    "active_end": 22,
+                    "frames": 74,
+                    "iasa_frame": 60,
+                    "shield_stun": 8,
+                    "damage": [15],
+                    "landing_lag": 21,
+                    "lcancel_lag": 10,
+                    "auto_cancel": 43
+                },
+                {
+                    "name": "back_air",
+                    "active_start": 6,
+                    "active_end": 17,
+                    "frames": 28,
+                    "shield_stun": 6,
+                    "damage": [11, 9],
+                    "landing_lag": 15,
+                    "lcancel_lag": 7,
+                    "auto_cancel": 19
+                },
+                {
+                    "name": "up_air",
+                    "active_start": 4,
+                    "active_end": 9,
+                    "frames": 33,
+                    "iasa_frame": 30,
+                    "shield_stun": 6,
+                    "damage": [11],
+                    "landing_lag": 15,
+                    "lcancel_lag": 7,
+                    "auto_cancel": 16
+                },
+                {
+                    "name": "down_air",
+                    "active_start": 10,
+                    "active_end": 32,
+                    "frames": 38,
+                    "iasa_frame": 38,
+                    "shield_stun": 2,
+                    "damage": [2],
+                    "landing_lag": 23,
+                    "lcancel_lag": 11,
+                    "auto_cancel": 36
+                }
+            ]
+        },
+        {
+            "special": [
+                {
+                    "name": "neutral_special",
+                    "active_start": 14,
+                    "active_end": 89,
+                    "frames": 43,
+                    "shield_stun": 2,
+                    "damage": [6]
+                },
+                {
+                    "name": "side_special",
+                    "active_start": 12,
+                    "active_end": 14,
+                    "frames": 35,
+                    "shield_stun": 6,
+                    "damage": [10, 8]
+                },
+                {
+                    "name": "up_special",
+                    "active_start": 3,
+                    "active_end": 24,
+                    "frames": 37,
+                    "shield_stun": 4,
+                    "damage": [5, 1],
+                    "landing_fall_special": 30
+                },
+                {
+                    "name": "down_special",
+                    "active_start": 8,
+                    "active_end": 39,
+                    "frames": 79,
+                    "shield_stun": 3,
+                    "damage": [3, 1]
+                }
+            ]
+        },
+        {
+            "grab": [
+                {
+                    "name": "standing_grab",
+                    "active_start": 6,
+                    "active_end": 8,
+                    "frames": 29
+                },
+                {
+                    "name": "dash_grab",
+                    "active_start": 10,
+                    "active_end": 12,
+                    "frames": 39
+                }
+            ]
+        },
+        {
+            "throw": [
+                {
+                    "name": "forward_throw",
+                    "frames": 27,
+                    "damage": [9]
+                },
+                {
+                    "name": "back_throw",
+                    "frames": 66,
+                    "damage": [12]
+                },
+                {
+                    "name": "down_throw",
+                    "frames": 39,
+                    "damage": [6]
+                },
+                {
+                    "name": "up_throw",
+                    "frames": 39,
+                    "damage": [8]
+                }
+            ]
+        },
+        {
+            "dodge": [
+                {
+                    "name": "spot_dodge",
+                    "invulnerable_frames": [2, 15],
+                    "frames": 22
+                },
+                {
+                    "name": "backward_roll",
+                    "invulnerable_frames": [4, 19],
+                    "frames": 31
+                },
+                {
+                    "name": "forward_roll",
+                    "invulnerable_frames": [4, 19],
+                    "frames": 31
+                },
+                {
+                    "name": "air_dodge",
+                    "invulnerable_frames": [4, 29],
+                    "frames": 48,
+                    "landing_fall_special": 10
+                }
+            ]
+        }
+    ]
+}
