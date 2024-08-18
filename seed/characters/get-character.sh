@@ -33,7 +33,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed -r "s/^IASA Frame ([[:digit:]]+).*$/        iasa: \1/g" | \
     sed -r "s/^Shield Stun ([[:digit:]]+).*$/        shield_stun: \1/g" | \
     sed -r "s/^Shield Stun  Frames$/        shield_stun: 0/g" | \
-    sed -r "s/^([[:digit:]]+)\.[[:digit:]]( \/ )?([[:digit:]]+)?(\.[[:digit:]])? % Base Damage/        base_damage: \[\1, \3\]/g" | \
+    sed -r "s/^([[:digit:]]+)\.[[:digit:]]( \/ )?([[:digit:]]+)?(\.[[:digit:]])? ?% Base Damage/        base_damage: \[\1, \3\]/g" | \
     sed -r "s/, \]$/]/g" | \
 
     sed -r "s/^Aerial Attacks$/    aerial:\n/g" | \
@@ -56,6 +56,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed -r "s/^Jab$/      jab:/g" | \
     sed -r "s/^Jab 2$/      jab2:/g" | \
     sed -r "s/^Jab 3$/      jab3:/g" | \
+    sed -r "s/^Rapid Jab$/      rapid_jab:/g" | \
     sed -r "s/^Forward Tilt$/      forward_tilt:/g" | \
     sed -r "s/^Up Tilt$/      up_tilt:/g" | \
     sed -r "s/^Down Tilt$/      down_tilt:/g" | \
@@ -77,6 +78,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed -r "s/^Side B$/      side_b:/g" | \
     sed -r "s/^Up B$/      up_b:/g" | \
     sed -r "s/^Down B$/      down_b:/g" | \
+    sed -r "s/^Aerial Down B$/      aerial_down_b:/g" | \
 
     sed -r "s/^Standing Grab$/      standing_grab:/g" | \
     sed -r "s/^Dash Grab$/      dash_grab:/g" | \
@@ -85,6 +87,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed -r "s/^Back Throw$/      back_throw:/g" | \
     sed -r "s/^Down Throw$/      down_throw:/g" | \
     sed -r "s/^Up Throw$/      up_throw:/g" | \
+    sed -r "s/^Active Frames -/        ACTIVE_FRAMES_HERE/g" | \
 
     sed -r "s/^Spot Dodge$/      spot_dodge:/g" | \
     sed -r "s/^Backward Roll$/      backward_roll:/g" | \
@@ -104,6 +107,10 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
 
     sed -r "/^Miscellaneous Info$/d" | \
     sed -r "/^Wall Jump:.*$/d" | \
-    sed -r "/^[[:space:]]*$/d"
+    sed -r "/^Active Frames 32-$/d" | \
+    sed -r "/^[[:space:]]*$/d" | \
+    sed -r "/^Total Frames$/d" | \
+    sed -r "/^Frame Startup$/d"
 
+# TODO: Fix missing data for each character
 # TODO: Add the missing character stats from SSBM Wiki
