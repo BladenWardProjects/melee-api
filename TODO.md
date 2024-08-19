@@ -1,9 +1,11 @@
 ## TODO
 
+- [ ] #10
+- [ ] #11
 - [ ] Add database
 - [x] Add a license
 - [ ] Add CI
-- [ ] Write tests
+- [ ] #9 Write tests
 - [ ] setup a mock for development
 - [ ] Flesh out schema
 - [ ] Write out json data or automate it
