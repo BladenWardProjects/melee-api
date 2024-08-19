@@ -4,9 +4,9 @@
 
 A simple API for Super Smash Bros Melee. for the Nintendo Gamecube.
 
+```[tasklist]
 ## TODO
-
-- [ ] #10
+- [ ] https://github.com/bladenward/melee-api/issues/10
 - [ ] #11
 - [ ] Add database
 - [x] Add a license
@@ -21,6 +21,7 @@ A simple API for Super Smash Bros Melee. for the Nintendo Gamecube.
 - [ ] Add a changelog
 - [ ] Deploy
 - [ ] Write a blog post
+```
 
 ## License
 
