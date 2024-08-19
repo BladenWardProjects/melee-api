@@ -1,7 +1,7 @@
 ## TODO
 
 - [ ] Add database
-- [ ] Add a license
+- [x] Add a license
 - [ ] Add CI
 - [ ] Write tests
 - [ ] setup a mock for development
