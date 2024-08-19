@@ -4,10 +4,10 @@
 
 A simple API for Super Smash Bros Melee. for the Nintendo Gamecube.
 
+For recent updates, see [Changelog](CHANGELOG.md).
+
 ### TODO
 The list of tasks for this project can be found in the [TODO.md](TODO.md) file.
-
-### [Changelog](CHANGELOG.md)
 
 ## License
 
