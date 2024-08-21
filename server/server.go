@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"github.com/labstack/echo/v4"
@@ -6,12 +6,12 @@ import (
 )
 
 type Server struct {
-	listenAddr string
+	ListenAddr string
 }
 
-func NewServer(listenAddr string) *Server {
+func NewServer(ListenAddr string) *Server {
 	return &Server{
-		listenAddr: listenAddr,
+		ListenAddr: ListenAddr,
 	}
 }
 
@@ -30,7 +30,7 @@ func (s *Server) Start() error {
 
 	s.NewApi(e)
 
-	return e.Start(s.listenAddr)
+	return e.Start(s.ListenAddr)
 }
 
 func (s *Server) Greeting(c echo.Context) error {
