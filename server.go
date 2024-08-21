@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type Server struct {
@@ -26,13 +26,15 @@ func (s *Server) Start() error {
 	e.Use(middleware.Gzip())
 	e.Use(middleware.Secure())
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "Hello, World!")
-	})
+	e.GET("/", s.Greeting)
 
 	s.NewApi(e)
 
 	return e.Start(s.listenAddr)
+}
+
+func (s *Server) Greeting(c echo.Context) error {
+	return c.String(200, "Welcome to the Super Smash Bros. Melee API!")
 }
 
 func (s *Server) NewApi(e *echo.Echo) {
