@@ -1,9 +1,10 @@
 ## TODO
-
+- [ ] https://github.com/bladenward/melee-api/issues/10
+- [ ] #11
 - [ ] Add database
-- [ ] Add a license
+- [x] Add a license
 - [ ] Add CI
-- [ ] Write tests
+- [ ] #9 Write tests
 - [ ] setup a mock for development
 - [ ] Flesh out schema
 - [ ] Write out json data or automate it
@@ -13,5 +14,3 @@
 - [ ] Add a changelog
 - [ ] Deploy
 - [ ] Write a blog post
-
-## DONE
