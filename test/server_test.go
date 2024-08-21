@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"net/http"
@@ -6,14 +6,15 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/BladenWard/melee-api/server"
+
 	"github.com/labstack/echo/v4"
-	// "github.com/stretchr/testify/assert"
 )
 
 var greeting = "Welcome to the Super Smash Bros. Melee API!"
 
 func TestGreeting(t *testing.T) {
-	s := &Server{}
+	s := &server.Server{}
 	e := echo.New()
 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(greeting))
 	rec := httptest.NewRecorder()

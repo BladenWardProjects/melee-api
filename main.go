@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
+
+	"github.com/BladenWard/melee-api/server"
 )
 
 func main() {
@@ -11,12 +13,12 @@ func main() {
 	seed := flag.Bool("seed", false, "Seed the database")
 	flag.Parse()
 
-	s := NewServer(*listenAddr)
+	s := server.NewServer(*listenAddr)
 	if *seed {
 		// TODO: Seed the database
 		// s.Seed()
 	}
 
-	fmt.Println("Listening on", s.listenAddr)
+	fmt.Println("Listening on", s.ListenAddr)
 	log.Fatal(s.Start())
 }
