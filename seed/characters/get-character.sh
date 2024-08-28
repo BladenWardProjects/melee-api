@@ -12,9 +12,32 @@ if [ -z "$1" ]; then
 fi
 
 CHARACTER=$1
+CHARACTER_URL=$CHARACTER
 CHARACTER_UPPER=$(echo "$CHARACTER" | tr '[:lower:]' '[:upper:]')
 
-curl -k -s https://meleeframedata.com/$CHARACTER | \
+case "$CHARACTER" in
+    "captain falcon")
+        CHARACTER_URL="captain_falcon"
+        ;;
+    "donkey kong")
+        CHARACTER_URL="donkey_kong"
+        ;;
+    "dr. mario")
+        CHARACTER_URL="dr._mario"
+        ;;
+    "ice climbers")
+        CHARACTER_URL="ice_climbers"
+        ;;
+    "mr. game & watch")
+        CHARACTER_URL="mr._game_&_watch"
+        CHARACTER_UPPER="MR. GAME &amp; WATCH"
+        ;;
+    "young link")
+        CHARACTER_URL="young_link"
+        ;;
+esac
+
+curl -k -s https://meleeframedata.com/$CHARACTER_URL | \
     sed -E "s/<\/*div( class=[\"'].*[\"'])?>//g" | \
     grep -v \-e "<" -e "{" -e "}" -e ";" -e "function" | \
     sed "s/^[[:space:]]*//g" | \
@@ -24,7 +47,13 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed '/\.0$/N;s/\n/ /' | \
     sed -n '/\+/q;p' | \
 
-    sed "s/$CHARACTER_UPPER/$CHARACTER:\n  name: $CHARACTER\n/g" | \
+    # FIX: The ampersand in the name of Mr. Game & Watch does not play nice with sed
+    # so this is the workaround
+    if [ "$CHARACTER" = "mr. game & watch" ]; then
+        { printf "mr. game & watch:\n  name: mr. game & watch\n" ; cat; }
+    else
+        sed "s/$CHARACTER_UPPER/$CHARACTER:\n  name: $CHARACTER\n/g"
+    fi | \
 
     sed -r "s/^Ground Attacks/  moves:\n    ground:\n/g" | \
     sed -r "s/^([[:digit:]]+) Frame Startup.*$/        start: \1/g" | \
