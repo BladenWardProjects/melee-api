@@ -110,7 +110,14 @@ curl -k -s https://meleeframedata.com/$CHARACTER | \
     sed -r "/^Active Frames 32-$/d" | \
     sed -r "/^[[:space:]]*$/d" | \
     sed -r "/^Total Frames$/d" | \
+
+if [ "$CHARACTER" = "sheik" ]; then
+    sed -r "s/^None Frames Landing Lag$/        landing_lag: 20/g" | \
+    sed -r "s/^-1 L-Cancel Lag$/        lcancel_lag: 10/g" | \
     sed -r "/^Frame Startup$/d"
+else
+    sed -r "/^Frame Startup$/d"
+fi
 
 # TODO: Fix missing data for each character
 # TODO: Add the missing character stats from SSBM Wiki
