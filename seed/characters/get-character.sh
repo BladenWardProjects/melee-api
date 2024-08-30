@@ -16,24 +16,29 @@ CHARACTER_URL=$CHARACTER
 CHARACTER_UPPER=$(echo "$CHARACTER" | tr '[:lower:]' '[:upper:]')
 
 case "$CHARACTER" in
-    "captain falcon")
+    "captain_falcon")
         CHARACTER_URL="captain_falcon"
+        CHARACTER_UPPER="CAPTAIN FALCON"
         ;;
-    "donkey kong")
+    "donkey_kong")
         CHARACTER_URL="donkey_kong"
+        CHARACTER_UPPER="DONKEY KONG"
         ;;
-    "dr. mario")
+    "dr._mario")
         CHARACTER_URL="dr._mario"
+        CHARACTER_UPPER="DR. MARIO"
         ;;
-    "ice climbers")
+    "ice_climbers")
         CHARACTER_URL="ice_climbers"
+        CHARACTER_UPPER="ICE CLIMBERS"
         ;;
-    "mr. game & watch")
+    "mr._game_&_watch")
         CHARACTER_URL="mr._game_&_watch"
         CHARACTER_UPPER="MR. GAME &amp; WATCH"
         ;;
-    "young link")
+    "young_link")
         CHARACTER_URL="young_link"
+        CHARACTER_UPPER="YOUNG LINK"
         ;;
 esac
 
@@ -49,8 +54,8 @@ curl -k -s https://meleeframedata.com/$CHARACTER_URL | \
 
     # FIX: The ampersand in the name of Mr. Game & Watch does not play nice with sed
     # so this is the workaround
-    if [ "$CHARACTER" = "mr. game & watch" ]; then
-        { printf "mr. game & watch:\n  name: mr. game & watch\n" ; cat; }
+    if [ "$CHARACTER" = "mr._game_&_watch" ]; then
+        { printf "mr._game_&_watch:\n  name: mr._game_&_watch\n" ; cat; }
     else
         sed "s/$CHARACTER_UPPER/$CHARACTER:\n  name: $CHARACTER\n/g"
     fi | \
@@ -148,7 +153,7 @@ case "$CHARACTER" in
         sed -r "s/^None Frames Landing Lag$/        landing_lag: 20/g" | \
         sed -r "s/^-1 L-Cancel Lag$/        lcancel_lag: 10/g"
         ;;
-    "young link")
+    "young_link")
         sed -r "s/^.*(dash_attack).*$/      dash_attack:\n        start: 7\n        end: 12\n        frames: 53\n        iasa: 40\n        shield_stun: 6\n        base_damage: [11, 10]/g" | \
         sed -r "/% Base Damage/d" | \
         sed -r "/^Frame Startup$/d"
@@ -162,7 +167,7 @@ case "$CHARACTER" in
         sed -r "/^.*% Base Damage$/d" | \
         sed -r "/^Frame Startup$/d"
         ;;
-    "mr. game & watch")
+    "mr._game_&_watch")
         sed -r "/^.*side_b:/d" | \
         sed -r "/^.*% Base Damage$/d" | \
         sed -r "/^Frame Startup$/d"
