@@ -76,7 +76,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER_URL | \
     sed -r "s/^Grabs$/    grab:\n/g" | \
 
     sed -r "s/^Throws$/    throw:\n/g" | \
-    sed -r "s/^([[:digit:]]+).*% Damage.*$/        damage: \1/g" | \
+    sed -r "s/^([[:digit:]]+).*% Damage.*$/        base_damage: \1/g" | \
 
     sed -r "s/^Dodges\/Rolls$/    dodge:\n/g" | \
     sed -r "s/^Inv\. ?Frames [[:digit:]]+-([[:digit:]]+).*$/        end: \1/g" | \
@@ -139,14 +139,47 @@ curl -k -s https://meleeframedata.com/$CHARACTER_URL | \
     sed -r "/^Active Frames 32-$/d" | \
     sed -r "/^[[:space:]]*$/d" | \
     sed -r "/^Total Frames$/d" | \
+    sed -r "/shield_stun: 0/d" | \
+    sed -r "/^.*ACTIVE_FRAMES_HERE$/d" | \
 
-if [ "$CHARACTER" = "sheik" ]; then
-    sed -r "s/^None Frames Landing Lag$/        landing_lag: 20/g" | \
-    sed -r "s/^-1 L-Cancel Lag$/        lcancel_lag: 10/g" | \
-    sed -r "/^Frame Startup$/d"
-else
-    sed -r "/^Frame Startup$/d"
-fi
-
-# TODO: Fix missing data for each character
-# TODO: Add the missing character stats from SSBM Wiki
+# FIX: Character specific alterations
+case "$CHARACTER" in
+    "sheik")
+        sed -r "s/^None Frames Landing Lag$/        landing_lag: 20/g" | \
+        sed -r "s/^-1 L-Cancel Lag$/        lcancel_lag: 10/g"
+        ;;
+    "young link")
+        sed -r "s/^.*(dash_attack).*$/      dash_attack:\n        start: 7\n        end: 12\n        frames: 53\n        iasa: 40\n        shield_stun: 6\n        base_damage: [11, 10]/g" | \
+        sed -r "/% Base Damage/d" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "peach")
+        sed -r "s/^.*% Base Damage$/        frames: 47/g" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "marth"|"roy")
+        sed -r "/^.*side_b:/d" | \
+        sed -r "/^.*% Base Damage$/d" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "mr. game & watch")
+        sed -r "/^.*side_b:/d" | \
+        sed -r "/^.*% Base Damage$/d" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "pikachu")
+        sed -r "/^.*Active Frames 13-.*$/d" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "jigglypuff")
+        sed -r "s/^.*% Base Damage$/        start: 1\n        end: 20\n        base_damage: [10]\n        frames: 59/g" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    "yoshi")
+        sed -r "s/^.*% Base Damage$/        start: 1\n        end: 20\n        base_damage: [4]\n        frames: 59/g" | \
+        sed -r "/^Frame Startup$/d"
+        ;;
+    *)
+        sed -r "/^Frame Startup$/d"
+        ;;
+esac
