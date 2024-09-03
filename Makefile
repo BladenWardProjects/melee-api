@@ -1,3 +1,5 @@
+PORT_CONFIG := 65432:5432
+
 all: run
 
 build:
@@ -7,6 +9,10 @@ build:
 run:
 	@echo "Starting webserver..."
 	@air
+
+database:
+	@echo "Creating database..."
+	@docker compose run -p $(PORT_CONFIG) -d db 
 
 test:
 	@echo "Running tests..."

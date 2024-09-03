@@ -5,20 +5,23 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/BladenWard/melee-api/db"
 	"github.com/BladenWard/melee-api/server"
 )
 
 func main() {
 	listenAddr := flag.String("listen", ":3030", "Listen address")
-	seed := flag.Bool("seed", false, "Seed the database")
+	// seed := flag.Bool("seed", false, "Seed the database")
 	flag.Parse()
 
-	s := server.NewServer(*listenAddr)
-	if *seed {
-		// TODO: Seed the database
-		// s.Seed()
-	}
+	server := server.NewServer(*listenAddr)
 
-	fmt.Println("Listening on", s.ListenAddr)
-	log.Fatal(s.Start())
+	db.Init()
+	// if *seed {
+	// TODO: Seed the database
+	// s.Seed()
+	// }
+
+	fmt.Println("Listening on", server.ListenAddr)
+	log.Fatal(server.Start())
 }
