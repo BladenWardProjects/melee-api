@@ -1,13 +1,15 @@
 ## TODO
-- [ ] https://github.com/bladenward/melee-api/issues/10
-- [ ] #11
-- [ ] Add database
+- [x] Add database
 - [x] Add a license
 - [ ] Add CI
-- [ ] #9 Write tests
+- [ ] Write more tests
 - [ ] setup a mock for development
 - [ ] Flesh out schema
-- [ ] Write out json data or automate it
+- [ ] Write out yaml data or automate it
+    - [x] Characters
+    - [ ] Stages
+    - [ ] Items
+    - [ ] Songs
 - [ ] Add a CLI?
 - [ ] Add documentation
 - [ ] Add a demo
