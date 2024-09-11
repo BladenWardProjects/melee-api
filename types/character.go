@@ -1,8 +1,9 @@
 package types
 
+// TODO: add gorm tags and associations
 type Character struct {
 	Name           string  `json:"name"`
-	ID             uint    `json:"id"`
+	ID             uint    `json:"id" gorm:"primaryKey"`
 	Weight         uint    `json:"weight"`
 	FastfallSpeed  float64 `json:"fastfall_speed"`
 	DashSpeed      float64 `json:"dash_speed"`
@@ -14,6 +15,7 @@ type Character struct {
 }
 
 type GroundAttack struct {
+	ID          uint     `json:"id" gorm:"primaryKey"`
 	Name        string   `json:"name"`
 	Start       uint     `json:"start"`
 	End         uint     `json:"end"`
@@ -24,6 +26,7 @@ type GroundAttack struct {
 }
 
 type Aerial struct {
+	ID          uint     `json:"id" gorm:"primaryKey"`
 	Name        string   `json:"name"`
 	Start       uint     `json:"start"`
 	End         uint     `json:"end"`
@@ -36,6 +39,7 @@ type Aerial struct {
 }
 
 type Special struct {
+	ID                 uint     `json:"id" gorm:"primaryKey"`
 	Name               string   `json:"name"`
 	Start              uint     `json:"start"`
 	End                uint     `json:"end"`
@@ -47,12 +51,14 @@ type Special struct {
 }
 
 type Grab struct {
+	ID          uint   `json:"id" gorm:"primaryKey"`
 	Name        string `json:"name"`
 	Start       uint   `json:"start"`
 	TotalFrames uint   `json:"total_frames"`
 }
 
 type Throw struct {
+	ID          uint     `json:"id" gorm:"primaryKey"`
 	Name        string   `json:"name"`
 	Start       uint     `json:"start"`
 	End         uint     `json:"end"`
@@ -61,6 +67,7 @@ type Throw struct {
 }
 
 type Dodge struct {
+	ID                 uint   `json:"id" gorm:"primaryKey"`
 	Name               string `json:"name"`
 	Start              uint   `json:"start"`
 	End                uint   `json:"end"`
@@ -69,6 +76,7 @@ type Dodge struct {
 }
 
 type Damage struct {
-	MoveID int `json:"move_id"`
-	Number int `json:"number"`
+	ID     uint `json:"id" gorm:"primaryKey"`
+	MoveID int  `json:"move_id"`
+	Number int  `json:"number"`
 }
