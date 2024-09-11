@@ -17,7 +17,6 @@ func Seed() {
 
 	characterYaml := make([]byte, 10000)
 	count, error := characterFile.Read(characterYaml)
-	characterYaml = characterYaml[:count]
 	if error != nil {
 		log.Fatalf("error: %v", error)
 	}
@@ -25,12 +24,11 @@ func Seed() {
 	// TODO: Import the yaml file
 	// fmt.Println(string(characterYaml))
 
-	characterSchema := types.Character{}
-	err := yaml.Unmarshal(characterYaml, &characterSchema)
+	err := yaml.Unmarshal(characterYaml[:count], &types.Character{})
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
-	d, err := yaml.Marshal(&characterSchema)
+	d, err := yaml.Marshal(&types.Character{})
 	if err != nil {
 		panic(err)
 	}

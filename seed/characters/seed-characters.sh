@@ -7,6 +7,9 @@ CHARACTERS=(
     "jigglypuff" "roy" "samus" "sheik" "yoshi" "young_link" "zelda"
 )
 
+## BUG: MAYBE: The character name at the top of the file might be throwing the
+##      Yaml parser off.
+
 for CHARACTER in "${CHARACTERS[@]}"
 do
     echo "Creating character $CHARACTER..."
