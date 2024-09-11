@@ -6,6 +6,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	"github.com/BladenWard/melee-api/types"
 )
 
 type DB struct {
@@ -22,10 +24,10 @@ func Init() *DB {
 
 	fmt.Println("Connected to database")
 
-	// err = db.AutoMigrate(&Character{})
-	// if err != nil {
-	// 	panic("failed to auto migrate: " + err.Error())
-	// }
+	err = db.AutoMigrate(&types.Character{})
+	if err != nil {
+		panic("failed to auto migrate: " + err.Error())
+	}
 
 	return &DB{db}
 }
