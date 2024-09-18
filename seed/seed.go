@@ -2,7 +2,6 @@ package seed
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -12,18 +11,14 @@ import (
 
 func Seed() {
 	fmt.Println("Seeding database...")
-	characterFile, _ := os.Open("seed/characters/fox.yaml")
-	defer characterFile.Close()
+	characterFile, _ := os.ReadFile("seed/characters/fox.yaml")
 
-	characterYaml := make([]byte, 10000)
-	count, error := characterFile.Read(characterYaml)
-	characterYaml = characterYaml[:count]
-	if error != nil {
-		log.Fatalf("error: %v", error)
-	}
+	characterYaml := string(characterFile)
 
 	// TODO: Import the yaml file
-	// fmt.Println(string(characterYaml))
+	fmt.Println(string(characterYaml))
+	m := make(map[string]interface{})
+	fmt.Println(yaml.Unmarshal([]byte(characterYaml), &m))
 
 	t := &types.Character{}
 	// err := yaml.Unmarshal(characterYaml[:count], &t)
