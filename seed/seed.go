@@ -17,18 +17,21 @@ func Seed() {
 
 	// TODO: Import the yaml file
 	fmt.Println(string(characterYaml))
-	m := make(map[string]interface{})
-	fmt.Println(yaml.Unmarshal([]byte(characterYaml), &m))
 
-	t := &types.Character{}
+	character := types.Character{}
+	yaml.Unmarshal([]byte(characterYaml), &character)
+	// yaml.Unmarshal([]byte(characterYaml), &m)
+	fmt.Println(character)
+
+	// t := &types.Character{}
 	// err := yaml.Unmarshal(characterYaml[:count], &t)
 	// if err != nil {
 	// 	log.Fatalf("error: %v", err)
 	// }
-	d, err := yaml.Marshal(t)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(d))
+	// d, err := yaml.Marshal(t)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println(string(d))
 	// fmt.Println(string(yamlFile))
 }
