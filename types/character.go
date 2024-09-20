@@ -59,44 +59,44 @@ type Character struct {
 }
 
 type GroundAttack struct {
-	ID          uint   `yaml:"id" gorm:"primaryKey"`
-	Name        string `yaml:"name"`
-	Start       uint   `yaml:"start"`
-	End         uint   `yaml:"end"`
-	TotalFrames uint   `yaml:"total_frames"`
-	IasaFrames  *uint  `yaml:"iasa_frames"`
-	ShieldStun  uint   `yaml:"shield_stun"`
-	BaseDamage  uint32 `yaml:"base_damage"`
-	WeakDamage  uint32 `yaml:"weak_damage"`
+	ID          uint    `yaml:"id" gorm:"primaryKey"`
+	Name        string  `yaml:"name"`
+	Start       uint    `yaml:"start"`
+	End         uint    `yaml:"end"`
+	TotalFrames uint    `yaml:"total_frames"`
+	IasaFrames  *uint   `yaml:"iasa_frames"`
+	ShieldStun  uint    `yaml:"shield_stun"`
+	BaseDamage  uint32  `yaml:"base_damage"`
+	WeakDamage  *uint32 `yaml:"weak_damage"`
 	CharacterID uint
 }
 
 type Aerial struct {
-	ID          uint   `yaml:"id" gorm:"primaryKey"`
-	Name        string `yaml:"name"`
-	Start       uint   `yaml:"start"`
-	End         uint   `yaml:"end"`
-	TotalFrames uint   `yaml:"total_frames"`
-	ShieldStun  uint   `yaml:"shield_stun"`
-	BaseDamage  uint32 `yaml:"base_damage"`
-	WeakDamage  uint32 `yaml:"weak_damage"`
-	LandingLag  uint   `yaml:"landing_lag"`
-	LCancelLag  uint   `yaml:"l_cancel_lag"`
-	AutoCancel  *int   `yaml:"auto_cancel"`
+	ID          uint    `yaml:"id" gorm:"primaryKey"`
+	Name        string  `yaml:"name"`
+	Start       uint    `yaml:"start"`
+	End         uint    `yaml:"end"`
+	TotalFrames uint    `yaml:"total_frames"`
+	ShieldStun  uint    `yaml:"shield_stun"`
+	BaseDamage  uint32  `yaml:"base_damage"`
+	WeakDamage  *uint32 `yaml:"weak_damage"`
+	LandingLag  uint    `yaml:"landing_lag"`
+	LCancelLag  uint    `yaml:"l_cancel_lag"`
+	AutoCancel  *int    `yaml:"auto_cancel"`
 	CharacterID uint
 }
 
 type Special struct {
-	ID                 uint   `yaml:"id" gorm:"primaryKey"`
-	Name               string `yaml:"name"`
-	Start              uint   `yaml:"start"`
-	End                uint   `yaml:"end"`
-	TotalFrames        uint   `yaml:"total_frames"`
-	ShieldStun         *uint  `yaml:"shield_stun"`
-	BaseDamage         uint32 `yaml:"base_damage"`
-	WeakDamage         uint32 `yaml:"weak_damage"`
-	LandingLag         *uint  `yaml:"landing_lag"`
-	LandingFallSpecial *uint  `yaml:"landing_fall_special"`
+	ID                 uint    `yaml:"id" gorm:"primaryKey"`
+	Name               string  `yaml:"name"`
+	Start              uint    `yaml:"start"`
+	End                uint    `yaml:"end"`
+	TotalFrames        uint    `yaml:"total_frames"`
+	ShieldStun         *uint   `yaml:"shield_stun"`
+	BaseDamage         uint32  `yaml:"base_damage"`
+	WeakDamage         *uint32 `yaml:"weak_damage"`
+	LandingLag         *uint   `yaml:"landing_lag"`
+	LandingFallSpecial *uint   `yaml:"landing_fall_special"`
 	CharacterID        uint
 }
 
@@ -109,13 +109,13 @@ type Grab struct {
 }
 
 type Throw struct {
-	ID          uint   `yaml:"id" gorm:"primaryKey"`
-	Name        string `yaml:"name"`
-	Start       uint   `yaml:"start"`
-	End         uint   `yaml:"end"`
-	TotalFrames uint   `yaml:"total_frames"`
-	BaseDamage  uint32 `yaml:"base_damage"`
-	WeakDamage  uint32 `yaml:"weak_damage"`
+	ID          uint    `yaml:"id" gorm:"primaryKey"`
+	Name        string  `yaml:"name"`
+	Start       uint    `yaml:"start"`
+	End         uint    `yaml:"end"`
+	TotalFrames uint    `yaml:"total_frames"`
+	BaseDamage  uint32  `yaml:"base_damage"`
+	WeakDamage  *uint32 `yaml:"weak_damage"`
 	CharacterID uint
 }
 
