@@ -16,7 +16,7 @@ func Seed() {
 	characterYaml := string(characterFile)
 
 	// TODO: Import the yaml file
-	fmt.Println(string(characterYaml))
+	// fmt.Println(string(characterYaml))
 
 	character := types.Character{}
 	yaml.Unmarshal([]byte(characterYaml), &character)
