@@ -24,7 +24,15 @@ func Init() *DB {
 
 	fmt.Println("Connected to database")
 
-	err = db.AutoMigrate(&types.Character{})
+	err = db.AutoMigrate(
+		&types.Character{},
+		&types.GroundAttack{},
+		&types.Aerial{},
+		&types.Special{},
+		&types.Grab{},
+		&types.Throw{},
+		&types.Dodge{},
+	)
 	if err != nil {
 		panic("failed to auto migrate: " + err.Error())
 	}
