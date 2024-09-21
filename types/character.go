@@ -38,7 +38,6 @@ func (ym *YamlMap) Value(ctx context.Context, field *schema.Field, dst reflect.V
 	return yaml.Marshal(ym)
 }
 
-// TODO: Fix script, move the damage array into 2 fields
 type Character struct {
 	Name           string         `json:"name"`
 	ID             uint           `json:"id" gorm:"primaryKey,autoIncrement"`
@@ -56,6 +55,44 @@ type Character struct {
 	Grabs          []Grab         `json:"grab" gorm:"serializer:json"`
 	Throws         []Throw        `json:"throw" gorm:"serializer:json"`
 	Dodges         []Dodge        `json:"dodge" gorm:"serializer:json"`
+}
+
+type Move interface {
+	GetMoveByName(string) interface{}
+}
+
+func (c *Character) GetMoveByName(name string) interface{} {
+	for _, move := range c.GroundAttacks {
+		if move.Name == name {
+			return move
+		}
+	}
+	for _, move := range c.Aerials {
+		if move.Name == name {
+			return move
+		}
+	}
+	for _, move := range c.Specials {
+		if move.Name == name {
+			return move
+		}
+	}
+	for _, move := range c.Grabs {
+		if move.Name == name {
+			return move
+		}
+	}
+	for _, move := range c.Throws {
+		if move.Name == name {
+			return move
+		}
+	}
+	for _, move := range c.Dodges {
+		if move.Name == name {
+			return move
+		}
+	}
+	return nil
 }
 
 type GroundAttack struct {
