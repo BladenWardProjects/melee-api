@@ -13,5 +13,5 @@ CHARACTERS=(
 for CHARACTER in "${CHARACTERS[@]}"
 do
     echo "Creating character $CHARACTER..."
-    ./seed/characters/get-character.sh "$CHARACTER" > "seed/characters/$CHARACTER.yaml"
+    ./seed/characters/get-character.sh "$CHARACTER" | yq -o=json > "seed/characters/$CHARACTER.json"
 done

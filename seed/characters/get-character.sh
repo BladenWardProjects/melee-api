@@ -108,14 +108,14 @@ sed -r "/^Total Frames$/d" | sed -r "/shield_stun: 0/d" | sed -r "/^.*ACTIVE_FRA
 # FIX: Character specific alterations
 case "$CHARACTER" in
     "sheik")
-        sed -r "s/^None Frames Landing Lag$/landing_lag: 20/g" | sed -r "s/^-1 L-Cancel Lag$/lcancel_lag: 10/g"
+        sed -r "s/^None Frames Landing Lag$/    landing_lag: 20/g" | sed -r "s/^-1 L-Cancel Lag$/    lcancel_lag: 10/g"
         ;;
     "young_link")
-        sed -r "s/^.*(dash_attack).*$/  dash_attack:\nstart: 7\nend: 12\nframes: 53\niasa: 40\nshield_stun: 6\nbase_damage: [11, 10]/g" | \
+        sed -r "s/^.*(dash_attack).*$/  - name: dash_attack\n    start: 7\n    end: 12\n    frames: 53\n    iasa: 40\n    shield_stun: 6\n    base_damage: 11\n    weak_damage: 10/g" | \
             sed -r "/% Base Damage/d" | sed -r "/^Frame Startup$/d"
         ;;
     "peach")
-        sed -r "s/^.*% Base Damage$/frames: 47/g" | sed -r "/^Frame Startup$/d"
+        sed -r "s/^.*% Base Damage$/    frames: 47/g" | sed -r "/^Frame Startup$/d"
         ;;
     "marth"|"roy")
         sed -r "/^.*side_b:/d" | sed -r "/^.*% Base Damage$/d" | sed -r "/^Frame Startup$/d"
@@ -127,10 +127,10 @@ case "$CHARACTER" in
         sed -r "/^.*Active Frames 13-.*$/d" | sed -r "/^Frame Startup$/d"
         ;;
     "jigglypuff")
-        sed -r "s/^.*% Base Damage$/start: 1\nend: 20\nbase_damage: [10]\nframes: 59/g" | sed -r "/^Frame Startup$/d"
+        sed -r "s/^.*% Base Damage$/    start: 1\n    end: 20\n    base_damage: 10\n    frames: 59/g" | sed -r "/^Frame Startup$/d"
         ;;
     "yoshi")
-        sed -r "s/^.*% Base Damage$/start: 1\nend: 20\nbase_damage: [4]\nframes: 59/g" | sed -r "/^Frame Startup$/d"
+        sed -r "s/^.*% Base Damage$/    start: 1\n    end: 20\n    base_damage: 4\n    frames: 59/g" | sed -r "/^Frame Startup$/d"
         ;;
     *)
         sed -r "/^Frame Startup$/d"
