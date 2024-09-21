@@ -6,8 +6,6 @@ import (
 	"os"
 
 	"github.com/BladenWard/melee-api/types"
-	// "gopkg.in/yaml.v3"
-	// "github.com/BladenWard/melee-api/types"
 )
 
 func Seed() {
@@ -16,23 +14,21 @@ func Seed() {
 
 	characterJson := string(characterFile)
 
-	// fmt.Println(string(characterJson))
-
 	character := types.Character{}
-	moveMap := map[string]interface{}{}
-	json.Unmarshal([]byte(characterJson), &moveMap)
+	infoMap := map[string]interface{}{}
+	json.Unmarshal([]byte(characterJson), &infoMap)
 
-	character.Name = moveMap["name"].(string)
-	character.Weight = uint(moveMap["weight"].(float64))
-	character.FastfallSpeed = moveMap["fastfall_speed"].(float64)
-	character.DashSpeed = moveMap["dash_speed"].(float64)
-	character.RunSpeed = moveMap["run_speed"].(float64)
-	character.WavedashLength = uint(moveMap["wavedash_length_rank"].(float64))
-	character.Galint = uint(moveMap["galint"].(float64))
-	character.JumpSquat = uint(moveMap["jump_squat"].(float64))
-	character.Walljump = moveMap["walljump"].(bool)
+	character.Name = infoMap["name"].(string)
+	character.Weight = uint(infoMap["weight"].(float64))
+	character.FastfallSpeed = infoMap["fastfall_speed"].(float64)
+	character.DashSpeed = infoMap["dash_speed"].(float64)
+	character.RunSpeed = infoMap["run_speed"].(float64)
+	character.WavedashLength = uint(infoMap["wavedash_length_rank"].(float64))
+	character.Galint = uint(infoMap["galint"].(float64))
+	character.JumpSquat = uint(infoMap["jump_squat"].(float64))
+	character.Walljump = infoMap["walljump"].(bool)
 
-	groundMap := moveMap["ground"].([]interface{})
+	groundMap := infoMap["ground"].([]interface{})
 	for _, ground := range groundMap {
 		groundAttack := types.GroundAttack{}
 		groundAttackMap := ground.(map[string]interface{})
@@ -53,8 +49,8 @@ func Seed() {
 		}
 		character.GroundAttacks = append(character.GroundAttacks, groundAttack)
 	}
-	//
-	aerialMap := moveMap["aerial"].([]interface{})
+
+	aerialMap := infoMap["aerial"].([]interface{})
 	for _, aerial := range aerialMap {
 		aerialAttack := types.Aerial{}
 		aerialAttackMap := aerial.(map[string]interface{})
@@ -76,59 +72,77 @@ func Seed() {
 		}
 		character.Aerials = append(character.Aerials, aerialAttack)
 	}
-	//
-	// specialMap := moveMap["special"].([]interface{})
-	// for _, special := range specialMap {
-	// 	specialAttack := types.Special{}
-	// 	specialAttackMap := special.(map[string]interface{})
-	// 	specialAttack.Name = specialAttackMap["name"].(string)
-	// 	specialAttack.Start = specialAttackMap["start"].(uint)
-	// 	specialAttack.End = specialAttackMap["end"].(uint)
-	// 	specialAttack.TotalFrames = specialAttackMap["total_frames"].(uint)
-	// 	specialAttack.ShieldStun = specialAttackMap["shield_stun"].(*uint)
-	// 	specialAttack.BaseDamage = specialAttackMap["base_damage"].(uint32)
-	// 	specialAttack.WeakDamage = specialAttackMap["weak_damage"].(*uint32)
-	// 	specialAttack.LandingLag = specialAttackMap["landing_lag"].(*uint)
-	// 	specialAttack.LandingFallSpecial = specialAttackMap["landing_fall_special"].(*uint)
-	// 	character.Specials = append(character.Specials, specialAttack)
-	// }
-	//
-	// grabMap := moveMap["grab"].([]interface{})
-	// for _, grab := range grabMap {
-	// 	grabAttack := types.Grab{}
-	// 	grabAttackMap := grab.(map[string]interface{})
-	// 	grabAttack.Name = grabAttackMap["name"].(string)
-	// 	grabAttack.Start = grabAttackMap["start"].(uint)
-	// 	grabAttack.TotalFrames = grabAttackMap["total_frames"].(uint)
-	// 	character.Grabs = append(character.Grabs, grabAttack)
-	// }
-	//
-	// throwMap := moveMap["throw"].([]interface{})
-	// for _, throw := range throwMap {
-	// 	throwAttack := types.Throw{}
-	// 	throwAttackMap := throw.(map[string]interface{})
-	// 	throwAttack.Name = throwAttackMap["name"].(string)
-	// 	throwAttack.Start = throwAttackMap["start"].(uint)
-	// 	throwAttack.End = throwAttackMap["end"].(uint)
-	// 	throwAttack.TotalFrames = throwAttackMap["total_frames"].(uint)
-	// 	throwAttack.BaseDamage = throwAttackMap["base_damage"].(uint32)
-	// 	throwAttack.WeakDamage = throwAttackMap["weak_damage"].(*uint32)
-	// 	character.Throws = append(character.Throws, throwAttack)
-	// }
-	//
-	// dodgeMap := moveMap["dodge"].([]interface{})
-	// for _, dodge := range dodgeMap {
-	// 	dodgeAttack := types.Dodge{}
-	// 	dodgeAttackMap := dodge.(map[string]interface{})
-	// 	dodgeAttack.Name = dodgeAttackMap["name"].(string)
-	// 	dodgeAttack.Start = dodgeAttackMap["start"].(uint)
-	// 	dodgeAttack.End = dodgeAttackMap["end"].(uint)
-	// 	dodgeAttack.TotalFrames = dodgeAttackMap["total_frames"].(uint)
-	// 	dodgeAttack.LandingFallSpecial = dodgeAttackMap["landing_fall_special"].(*uint)
-	// 	character.Dodges = append(character.Dodges, dodgeAttack)
-	// }
 
-	fmt.Println(character.Aerials)
+	specialMap := infoMap["special"].([]interface{})
+	for _, special := range specialMap {
+		specialAttack := types.Special{}
+		specialAttackMap := special.(map[string]interface{})
+		specialAttack.Name = specialAttackMap["name"].(string)
+		specialAttack.Start = uint(specialAttackMap["start"].(float64))
+		specialAttack.End = uint(specialAttackMap["end"].(float64))
+		specialAttack.TotalFrames = uint(specialAttackMap["frames"].(float64))
+		if specialAttackMap["shield_stun"] != nil {
+			var shield uint = uint(specialAttackMap["shield_stun"].(float64))
+			specialAttack.ShieldStun = &shield
+		}
+		specialAttack.BaseDamage = uint(specialAttackMap["base_damage"].(float64))
+		if specialAttackMap["weak_damage"] != nil {
+			var weak uint = uint(specialAttackMap["weak_damage"].(float64))
+			specialAttack.WeakDamage = &weak
+		}
+		if specialAttackMap["landing_lag"] != nil {
+			var landingLag uint = uint(specialAttackMap["landing_lag"].(float64))
+			specialAttack.LandingLag = &landingLag
+		}
+		if specialAttackMap["landing_fall_special"] != nil {
+			var landingFallSpecial uint = uint(specialAttackMap["landing_fall_special"].(float64))
+			specialAttack.LandingFallSpecial = &landingFallSpecial
+		}
+		character.Specials = append(character.Specials, specialAttack)
+	}
+
+	grabMap := infoMap["grab"].([]interface{})
+	for _, grab := range grabMap {
+		grabAttack := types.Grab{}
+		grabAttackMap := grab.(map[string]interface{})
+		grabAttack.Name = grabAttackMap["name"].(string)
+		grabAttack.Start = uint(grabAttackMap["start"].(float64))
+		grabAttack.TotalFrames = uint(grabAttackMap["frames"].(float64))
+		character.Grabs = append(character.Grabs, grabAttack)
+	}
+
+	throwMap := infoMap["throw"].([]interface{})
+	for _, throw := range throwMap {
+		throwAttack := types.Throw{}
+		throwAttackMap := throw.(map[string]interface{})
+		throwAttack.Name = throwAttackMap["name"].(string)
+		throwAttack.Start = uint(throwAttackMap["start"].(float64))
+		throwAttack.End = uint(throwAttackMap["end"].(float64))
+		throwAttack.TotalFrames = uint(throwAttackMap["frames"].(float64))
+		throwAttack.BaseDamage = uint(throwAttackMap["base_damage"].(float64))
+		if throwAttackMap["weak_damage"] != nil {
+			var weak uint = uint(throwAttackMap["weak_damage"].(float64))
+			throwAttack.WeakDamage = &weak
+		}
+		character.Throws = append(character.Throws, throwAttack)
+	}
+
+	dodgeMap := infoMap["dodge"].([]interface{})
+	for _, dodge := range dodgeMap {
+		dodgeAttack := types.Dodge{}
+		dodgeAttackMap := dodge.(map[string]interface{})
+		dodgeAttack.Name = dodgeAttackMap["name"].(string)
+		dodgeAttack.Start = uint(dodgeAttackMap["start"].(float64))
+		dodgeAttack.End = uint(dodgeAttackMap["end"].(float64))
+		dodgeAttack.TotalFrames = uint(dodgeAttackMap["frames"].(float64))
+		if dodgeAttackMap["landing_fall_special"] != nil {
+			var landingFallSpecial uint = uint(dodgeAttackMap["landing_fall_special"].(float64))
+			dodgeAttack.LandingFallSpecial = &landingFallSpecial
+		}
+		character.Dodges = append(character.Dodges, dodgeAttack)
+	}
+
+	fmt.Println(character.GetMoveByName("up_air"))
 
 	// char := types.Character{}
 	// json.Unmarshal([]byte(characterYaml), &char)
