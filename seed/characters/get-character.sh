@@ -70,28 +70,28 @@ sed -r "s/^Throws$/throw:\n/g" | sed -r "s/^([[:digit:]]+).*% Damage.*$/    base
 sed -r "s/^Dodges\/Rolls$/dodge:\n/g" | sed -r "s/^Inv\. ?Frames [[:digit:]]+-([[:digit:]]+).*$/    end: \1/g" | \
 sed -r "s/^Landing Fall Special Lag: ([[:digit:]]+) Frames.*$/    landing_fall_special: \1/g" | \
 
-sed -r "s/^Jab$/  jab:/g" | sed -r "s/^Jab 2$/  jab2:/g" | sed -r "s/^Jab 3$/  jab3:/g" | \
-sed -r "s/^Rapid Jab$/  rapid_jab:/g" | sed -r "s/^Forward Tilt$/  forward_tilt:/g" | \
-sed -r "s/^Up Tilt$/  up_tilt:/g" | sed -r "s/^Down Tilt$/  down_tilt:/g" | \
-sed -r "s/^Dash Attack$/  dash_attack:/g" | sed -r "s/^Forward Smash$/  forward_smash:/g" | \
-sed -r "s/^Up Smash$/  up_smash:/g" | sed -r "s/^Down Smash$/  down_smash:/g" | \
+sed -r "s/^Jab$/  - name: jab/g" | sed -r "s/^Jab 2$/  - name: jab2/g" | sed -r "s/^Jab 3$/  - name: jab3/g" | \
+sed -r "s/^Rapid Jab$/  - name: rapid_jab/g" | sed -r "s/^Forward Tilt$/  - name: forward_tilt/g" | \
+sed -r "s/^Up Tilt$/  - name: up_tilt/g" | sed -r "s/^Down Tilt$/  - name: down_tilt/g" | \
+sed -r "s/^Dash Attack$/  - name: dash_attack/g" | sed -r "s/^Forward Smash$/  - name: forward_smash/g" | \
+sed -r "s/^Up Smash$/  - name: up_smash/g" | sed -r "s/^Down Smash$/  - name: down_smash/g" | \
 
-sed -r "s/^Neutral Air$/  neutral_air:/g" | sed -r "s/^Forward Air$/  forward_air:/g" | \
-sed -r "s/^Back Air$/  back_air:/g" | sed -r "s/^Up Air$/  up_air:/g" | sed -r "s/^Down Air$/  down_air:/g" | \
+sed -r "s/^Neutral Air$/  - name: neutral_air/g" | sed -r "s/^Forward Air$/  - name: forward_air/g" | \
+sed -r "s/^Back Air$/  - name: back_air/g" | sed -r "s/^Up Air$/  - name: up_air/g" | sed -r "s/^Down Air$/  - name: down_air/g" | \
 
-sed -r "s/^Neutral B$/  neutral_b:/g" | sed -r "s/^Aerial Neutral B$/  aerial_neutral_b:/g" | \
-sed -r "s/^Aerial Side B$/  aerial_side_b:/g" | sed -r "s/^Aerial Up B$/  aerial_up_b:/g" | \
-sed -r "s/^Side B$/  side_b:/g" | sed -r "s/^Up B$/  up_b:/g" | sed -r "s/^Down B$/  down_b:/g" | \
-sed -r "s/^Aerial Down B$/  aerial_down_b:/g" | \
+sed -r "s/^Neutral B$/  - name: neutral_b/g" | sed -r "s/^Aerial Neutral B$/  - name: aerial_neutral_b/g" | \
+sed -r "s/^Aerial Side B$/  - name: aerial_side_b/g" | sed -r "s/^Aerial Up B$/  - name: aerial_up_b/g" | \
+sed -r "s/^Side B$/  - name: side_b/g" | sed -r "s/^Up B$/  - name: up_b/g" | sed -r "s/^Down B$/  - name: down_b/g" | \
+sed -r "s/^Aerial Down B$/  - name: aerial_down_b/g" | \
 
-sed -r "s/^Standing Grab$/  standing_grab:/g" | sed -r "s/^Dash Grab$/  dash_grab:/g" | \
+sed -r "s/^Standing Grab$/  - name: standing_grab/g" | sed -r "s/^Dash Grab$/  - name: dash_grab/g" | \
 
-sed -r "s/^Forward Throw$/  forward_throw:/g" | sed -r "s/^Back Throw$/  back_throw:/g" | \
-sed -r "s/^Down Throw$/  down_throw:/g" | sed -r "s/^Up Throw$/  up_throw:/g" | \
+sed -r "s/^Forward Throw$/  - name: forward_throw/g" | sed -r "s/^Back Throw$/  - name: back_throw/g" | \
+sed -r "s/^Down Throw$/  - name: down_throw/g" | sed -r "s/^Up Throw$/  - name: up_throw/g" | \
 sed -r "s/^Active Frames -/ACTIVE_FRAMES_HERE/g" | \
 
-sed -r "s/^Spot Dodge$/  spot_dodge:/g" | sed -r "s/^Backward Roll$/  backward_roll:/g" | \
-sed -r "s/^Forward Roll$/  forward_roll:/g" | sed -r "s/^Air Dodge$/  air_dodge:/g" | \
+sed -r "s/^Spot Dodge$/  - name: spot_dodge/g" | sed -r "s/^Backward Roll$/  - name: backward_roll/g" | \
+sed -r "s/^Forward Roll$/  - name: forward_roll/g" | sed -r "s/^Air Dodge$/  - name: air_dodge/g" | \
 
 sed -r "s/^Weight: ([[:digit:]]+).*$/weight: \1/g" | \
 sed -r "s/^Fast Fall Speed: ([[:digit:]]+\.[[:digit:]]+).*\$/fastfall_speed: \1/g" | \
