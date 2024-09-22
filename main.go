@@ -17,10 +17,10 @@ func main() {
 
 	server := server.NewServer(*listenAddr)
 
-	db.Init()
+	db := db.Init()
 	if *seedFlag {
 		// TODO: Seed the database
-		seed.Seed()
+		seed.Seed(db)
 	}
 
 	fmt.Println("Listening on", server.ListenAddr)

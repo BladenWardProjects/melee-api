@@ -58,11 +58,11 @@ func (c *Character) GetMoveByName(name string) interface{} {
 }
 
 type GroundAttack struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
+	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name        string `json:"name"`
 	Start       uint   `json:"start"`
 	End         uint   `json:"end"`
-	TotalFrames uint   `json:"frames"`
+	TotalFrames *uint  `json:"frames"`
 	IasaFrames  *uint  `json:"iasa_frames"`
 	ShieldStun  uint   `json:"shield_stun"`
 	BaseDamage  uint   `json:"base_damage"`
@@ -71,11 +71,11 @@ type GroundAttack struct {
 }
 
 type Aerial struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
+	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name        string `json:"name"`
 	Start       uint   `json:"start"`
-	End         uint   `json:"end"`
-	TotalFrames uint   `json:"frames"`
+	End         *uint  `json:"end"`
+	TotalFrames *uint  `json:"frames"`
 	ShieldStun  uint   `json:"shield_stun"`
 	BaseDamage  uint   `json:"base_damage"`
 	WeakDamage  *uint  `json:"weak_damage"`
@@ -86,11 +86,11 @@ type Aerial struct {
 }
 
 type Special struct {
-	ID                 uint   `json:"id" gorm:"primaryKey"`
+	ID                 uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name               string `json:"name"`
 	Start              uint   `json:"start"`
-	End                uint   `json:"end"`
-	TotalFrames        uint   `json:"frames"`
+	End                *uint  `json:"end"`
+	TotalFrames        *uint  `json:"frames"`
 	ShieldStun         *uint  `json:"shield_stun"`
 	BaseDamage         uint   `json:"base_damage"`
 	WeakDamage         *uint  `json:"weak_damage"`
@@ -100,18 +100,18 @@ type Special struct {
 }
 
 type Grab struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
+	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name        string `json:"name"`
-	Start       uint   `json:"start"`
+	Start       *uint  `json:"start"`
 	TotalFrames uint   `json:"frames"`
 	CharacterID uint
 }
 
 type Throw struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
+	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name        string `json:"name"`
-	Start       uint   `json:"start"`
-	End         uint   `json:"end"`
+	Start       *uint  `json:"start"`
+	End         *uint  `json:"end"`
 	TotalFrames uint   `json:"frames"`
 	BaseDamage  uint   `json:"base_damage"`
 	WeakDamage  *uint  `json:"weak_damage"`
@@ -119,7 +119,7 @@ type Throw struct {
 }
 
 type Dodge struct {
-	ID                 uint   `json:"id" gorm:"primaryKey"`
+	ID                 uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name               string `json:"name"`
 	Start              uint   `json:"start"`
 	End                uint   `json:"end"`
