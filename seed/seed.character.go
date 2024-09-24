@@ -29,7 +29,7 @@ var charList = []string{
 	"dr._mario",
 	"falco",
 	"fox",
-	"mr._game_and_watch",
+	"mr._game_&_watch",
 	"ganondorf",
 	"ice_climbers",
 	"kirby",
