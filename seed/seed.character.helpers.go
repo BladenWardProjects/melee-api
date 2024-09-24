@@ -24,6 +24,7 @@ func seedGroundAttacks(character *types.Character, groundMap []interface{}) {
 			var weak uint = uint(groundAttackMap["weak_damage"].(float64))
 			groundAttack.WeakDamage = &weak
 		}
+		groundAttack.CharacterID = character.ID
 		character.GroundAttacks = append(character.GroundAttacks, groundAttack)
 		groundAttackId++
 	}
@@ -165,8 +166,8 @@ func seedDodges(character *types.Character, dodgeMap []interface{}) {
 	}
 }
 
-func seedStats(charId uint, character *types.Character, infoMap map[string]interface{}) {
-	character.ID = charId
+func seedStats(charId int, character *types.Character, infoMap map[string]interface{}) {
+	character.ID = uint(charId)
 	character.Name = infoMap["name"].(string)
 	character.Weight = uint(infoMap["weight"].(float64))
 	character.FastfallSpeed = infoMap["fastfall_speed"].(float64)

@@ -9,11 +9,11 @@ import (
 	"github.com/BladenWard/melee-api/types"
 )
 
-func seedCharacterStructure(character *types.Character, characterJson *string) {
+func seedCharacterStructure(charId int, character *types.Character, characterJson *string) {
 	infoMap := map[string]interface{}{}
 	json.Unmarshal([]byte(*characterJson), &infoMap)
 
-	seedStats(0, character, infoMap)
+	seedStats(charId, character, infoMap)
 	seedGroundAttacks(character, infoMap["ground"].([]interface{}))
 	seedAerials(character, infoMap["aerial"].([]interface{}))
 	seedSpecials(character, infoMap["special"].([]interface{}))
@@ -51,23 +51,26 @@ var charList = []string{
 	"zelda",
 }
 
-func seedCharacter(db *db.DB, id uint) {
+func seedCharacter(db *db.DB, character *types.Character, id int) {
 	characterFile, _ := os.ReadFile("seed/characters/" + charList[id] + ".json")
+	fmt.Println("Seeding character " + charList[id] + "...")
 	characterJson := string(characterFile)
 
-	character := types.Character{}
-	seedCharacterStructure(&character, &characterJson)
+	seedCharacterStructure(id, character, &characterJson)
 
 	db.DB.Create(&character)
 }
 
 func SeedCharacters(db *db.DB) {
-	seedCharacter(db, 1)
-	// seedCharacter(db, 2)
-
 	char := types.Character{}
-	db.First(&char)
-	fmt.Println(char.Name)
+	for i := 0; i < len(charList); i++ {
+		seedCharacter(db, &char, i)
+	}
+	// seedCharacter(db, &char, 0)
+
+	newChar := types.Character{}
+	db.First(&newChar)
+	fmt.Println(newChar.Name)
 }
 
 func DROP_TABLES(db *db.DB) {

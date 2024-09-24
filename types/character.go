@@ -11,12 +11,12 @@ type Character struct {
 	Galint         uint           `json:"galint"`
 	JumpSquat      uint           `json:"jump_squat"`
 	Walljump       bool           `json:"walljump"`
-	GroundAttacks  []GroundAttack `json:"ground" gorm:"serializer:json"`
-	Aerials        []Aerial       `json:"aerial" gorm:"serializer:json"`
-	Specials       []Special      `json:"special" gorm:"serializer:json"`
-	Grabs          []Grab         `json:"grab" gorm:"serializer:json"`
-	Throws         []Throw        `json:"throw" gorm:"serializer:json"`
-	Dodges         []Dodge        `json:"dodge" gorm:"serializer:json"`
+	GroundAttacks  []GroundAttack `json:"ground" gorm:"serializer:json;foreignKey:CharacterID"`
+	Aerials        []Aerial       `json:"aerial" gorm:"serializer:json;foreignKey:CharacterID"`
+	Specials       []Special      `json:"special" gorm:"serializer:json;foreignKey:CharacterID"`
+	Grabs          []Grab         `json:"grab" gorm:"serializer:json;foreignKey:CharacterID"`
+	Throws         []Throw        `json:"throw" gorm:"serializer:json;foreignKey:CharacterID"`
+	Dodges         []Dodge        `json:"dodge" gorm:"serializer:json;foreignKey:CharacterID"`
 }
 
 type Move interface {
@@ -95,7 +95,7 @@ type Special struct {
 	BaseDamage         uint   `json:"base_damage"`
 	WeakDamage         *uint  `json:"weak_damage"`
 	LandingLag         *uint  `json:"landing_lag"`
-	LandingFallSpecial *uint  `json:"landing_fall_special"`
+	LandingFallSpecial *uint  `json:"landing_fall_special,omitempty"`
 	CharacterID        uint
 }
 
@@ -124,6 +124,6 @@ type Dodge struct {
 	Start              uint   `json:"start"`
 	End                uint   `json:"end"`
 	TotalFrames        uint   `json:"frames"`
-	LandingFallSpecial *uint  `json:"landing_fall_special"`
+	LandingFallSpecial *uint  `json:"landing_fall_special,omitempty"`
 	CharacterID        uint
 }
