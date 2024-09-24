@@ -115,6 +115,7 @@ case "$CHARACTER" in
             sed -r "/% Base Damage/d" | sed -r "/^Frame Startup$/d"
         ;;
     "peach")
+        sed -r "/^.*- name: forward_smash$/,+1d" | \
         sed -r "s/^.*% Base Damage$/    frames: 47/g" | sed -r "/^Frame Startup$/d"
         ;;
     "marth"|"roy")
