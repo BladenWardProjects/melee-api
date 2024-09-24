@@ -3,27 +3,24 @@ package types
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 )
 
-// TODO: Make this the serializer
-func seedStats(charId int, character *Character, infoMap map[string]interface{}) {
-	character.ID = uint(charId + 1)
-	fmt.Println(character.ID)
-	character.Name = infoMap["name"].(string)
-	character.Weight = uint(infoMap["weight"].(float64))
-	character.FastfallSpeed = infoMap["fastfall_speed"].(float64)
-	character.DashSpeed = infoMap["dash_speed"].(float64)
+func (c *Character) seedStats(charId int, infoMap map[string]interface{}) {
+	c.ID = uint(charId + 1)
+	c.Name = infoMap["name"].(string)
+	c.Weight = uint(infoMap["weight"].(float64))
+	c.FastfallSpeed = infoMap["fastfall_speed"].(float64)
+	c.DashSpeed = infoMap["dash_speed"].(float64)
 	if infoMap["run_speed"] != nil {
-		character.RunSpeed = infoMap["run_speed"].(float64)
+		c.RunSpeed = infoMap["run_speed"].(float64)
 	}
-	character.WavedashLength = uint(infoMap["wavedash_length_rank"].(float64))
-	character.Galint = uint(infoMap["galint"].(float64))
-	character.JumpSquat = uint(infoMap["jump_squat"].(float64))
-	character.Walljump = infoMap["walljump"].(bool)
+	c.WavedashLength = uint(infoMap["wavedash_length_rank"].(float64))
+	c.Galint = uint(infoMap["galint"].(float64))
+	c.JumpSquat = uint(infoMap["jump_squat"].(float64))
+	c.Walljump = infoMap["walljump"].(bool)
 }
 
-func seedGroundAttacks(character *Character, groundMap []interface{}) {
+func (c *Character) seedGroundAttacks(groundMap []interface{}) {
 	groundAttackId := 0
 	for _, ground := range groundMap {
 		groundAttack := GroundAttack{}
@@ -55,13 +52,13 @@ func seedGroundAttacks(character *Character, groundMap []interface{}) {
 			var weak uint = uint(groundAttackMap["weak_damage"].(float64))
 			groundAttack.WeakDamage = &weak
 		}
-		groundAttack.CharacterID = character.ID
-		character.GroundAttacks = append(character.GroundAttacks, groundAttack)
+		groundAttack.CharacterID = c.ID
+		c.GroundAttacks = append(c.GroundAttacks, groundAttack)
 		groundAttackId++
 	}
 }
 
-func seedAerials(character *Character, aerialMap []interface{}) {
+func (c *Character) seedAerials(aerialMap []interface{}) {
 	aerialAttackId := 0
 	for _, aerial := range aerialMap {
 		aerialAttack := Aerial{}
@@ -91,12 +88,13 @@ func seedAerials(character *Character, aerialMap []interface{}) {
 			var autoCancel int = int(aerialAttackMap["auto_cancel"].(float64))
 			aerialAttack.AutoCancel = &autoCancel
 		}
-		character.Aerials = append(character.Aerials, aerialAttack)
+		aerialAttack.CharacterID = c.ID
+		c.Aerials = append(c.Aerials, aerialAttack)
 		aerialAttackId++
 	}
 }
 
-func seedSpecials(character *Character, specialMap []interface{}) {
+func (c *Character) seedSpecials(specialMap []interface{}) {
 	specialAttackId := 0
 	for _, special := range specialMap {
 		specialAttack := Special{}
@@ -129,12 +127,13 @@ func seedSpecials(character *Character, specialMap []interface{}) {
 			var landingFallSpecial uint = uint(specialAttackMap["landing_fall_special"].(float64))
 			specialAttack.LandingFallSpecial = &landingFallSpecial
 		}
-		character.Specials = append(character.Specials, specialAttack)
+		specialAttack.CharacterID = c.ID
+		c.Specials = append(c.Specials, specialAttack)
 		specialAttackId++
 	}
 }
 
-func seedGrabs(character *Character, grabMap []interface{}) {
+func (c *Character) seedGrabs(grabMap []interface{}) {
 	grabId := 0
 	for _, grab := range grabMap {
 		grabAttack := Grab{}
@@ -146,12 +145,13 @@ func seedGrabs(character *Character, grabMap []interface{}) {
 			grabAttack.Start = &start
 		}
 		grabAttack.TotalFrames = uint(grabAttackMap["frames"].(float64))
-		character.Grabs = append(character.Grabs, grabAttack)
+		grabAttack.CharacterID = c.ID
+		c.Grabs = append(c.Grabs, grabAttack)
 		grabId++
 	}
 }
 
-func seedThrows(character *Character, throwMap []interface{}) {
+func (c *Character) seedThrows(throwMap []interface{}) {
 	throwId := 0
 	for _, throw := range throwMap {
 		throwAttack := Throw{}
@@ -175,12 +175,13 @@ func seedThrows(character *Character, throwMap []interface{}) {
 			var weak uint = uint(throwAttackMap["weak_damage"].(float64))
 			throwAttack.WeakDamage = &weak
 		}
-		character.Throws = append(character.Throws, throwAttack)
+		throwAttack.CharacterID = c.ID
+		c.Throws = append(c.Throws, throwAttack)
 		throwId++
 	}
 }
 
-func seedDodges(character *Character, dodgeMap []interface{}) {
+func (c *Character) seedDodges(dodgeMap []interface{}) {
 	dodgeId := 0
 	for _, dodge := range dodgeMap {
 		dodgeAttack := Dodge{}
@@ -194,7 +195,8 @@ func seedDodges(character *Character, dodgeMap []interface{}) {
 			var landingFallSpecial uint = uint(dodgeAttackMap["landing_fall_special"].(float64))
 			dodgeAttack.LandingFallSpecial = &landingFallSpecial
 		}
-		character.Dodges = append(character.Dodges, dodgeAttack)
+		dodgeAttack.CharacterID = c.ID
+		c.Dodges = append(c.Dodges, dodgeAttack)
 		dodgeId++
 	}
 }
@@ -203,11 +205,11 @@ func SeedCharacterStructure(charId int, character *Character, characterJson *str
 	infoMap := map[string]interface{}{}
 	json.Unmarshal([]byte(*characterJson), &infoMap)
 
-	seedStats(charId, character, infoMap)
-	seedGroundAttacks(character, infoMap["ground"].([]interface{}))
-	seedAerials(character, infoMap["aerial"].([]interface{}))
-	seedSpecials(character, infoMap["special"].([]interface{}))
-	seedGrabs(character, infoMap["grab"].([]interface{}))
-	seedThrows(character, infoMap["throw"].([]interface{}))
-	seedDodges(character, infoMap["dodge"].([]interface{}))
+	character.seedStats(charId, infoMap)
+	character.seedGroundAttacks(infoMap["ground"].([]interface{}))
+	character.seedAerials(infoMap["aerial"].([]interface{}))
+	character.seedSpecials(infoMap["special"].([]interface{}))
+	character.seedGrabs(infoMap["grab"].([]interface{}))
+	character.seedThrows(infoMap["throw"].([]interface{}))
+	character.seedDodges(infoMap["dodge"].([]interface{}))
 }
