@@ -37,50 +37,23 @@ var charList = []string{
 	"zelda",
 }
 
-func seedCharacter(db *db.DB, character *types.Character, id int) {
-	characterFile, _ := os.ReadFile("seed/characters/" + charList[id] + ".json")
-	characterJson := string(characterFile)
-
-	types.SeedCharacterStructure(id, character, &characterJson)
-
-	fmt.Println(charList[id] + " seeded. ID: " + fmt.Sprint(character.ID))
-	db.DB.Create(&character)
-}
-
 func SeedCharacters(db *db.DB) {
 	char := types.Character{}
 	for i := 0; i < 5; i++ {
 		fmt.Println("Seeding character " + charList[i] + "...")
 		seedCharacter(db, &char, i)
+		fmt.Println(charList[i] + " seeded. ID: " + fmt.Sprint(char.ID))
 	}
-	// seedCharacter(db, &char, 0)
-
-	newChar := types.Character{}
-	db.First(&newChar, 1)
-	fmt.Println(newChar.GetMoveByName("up_air"))
-	fmt.Println(newChar.Name)
 }
 
-func DROP_TABLES(db *db.DB) {
-	err := db.DB.Migrator().DropTable(
-		&types.Character{},
-		&types.GroundAttack{},
-		&types.Aerial{},
-		&types.Special{},
-		&types.Grab{},
-		&types.Throw{},
-		&types.Dodge{},
-	)
+func seedCharacter(db *db.DB, character *types.Character, id int) {
+	characterFile, err := os.ReadFile("seed/characters/" + charList[id] + ".json")
 	if err != nil {
-		panic("failed to drop tables: " + err.Error())
+		panic(err)
 	}
-	db.DB.AutoMigrate(
-		&types.Character{},
-		&types.GroundAttack{},
-		&types.Aerial{},
-		&types.Special{},
-		&types.Grab{},
-		&types.Throw{},
-		&types.Dodge{},
-	)
+	characterJson := string(characterFile)
+
+	types.SeedCharacterStructure(id, character, &characterJson)
+
+	db.Create(&character)
 }

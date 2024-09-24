@@ -1,17 +1,24 @@
 package server
 
 import (
+	"strconv"
+
+	"github.com/BladenWard/melee-api/db"
+	"github.com/BladenWard/melee-api/types"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 type Server struct {
 	ListenAddr string
+	store      db.Storage
 }
 
-func NewServer(ListenAddr string) *Server {
+func NewServer(ListenAddr string, store db.Storage) *Server {
 	return &Server{
 		ListenAddr: ListenAddr,
+		store:      store,
 	}
 }
 
@@ -49,7 +56,18 @@ func (s *Server) NewApi(e *echo.Echo) {
 		})
 
 		char.GET("/:id", func(c echo.Context) error {
-			return c.String(200, "Character: "+c.Param("id"))
+			id, _ := strconv.Atoi(c.Param("id"))
+			character, err := s.store.GetCharacterByID(uint(id))
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, character)
+		})
+
+		char.GET("/name/:name", func(c echo.Context) error {
+			retrievedChar := types.Character{}
+			s.store.GetCharacterByName(c.Param("name"))
+			return c.JSON(200, retrievedChar)
 		})
 	}
 

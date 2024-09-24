@@ -8,6 +8,7 @@ import (
 	"github.com/BladenWard/melee-api/db"
 	"github.com/BladenWard/melee-api/seed"
 	"github.com/BladenWard/melee-api/server"
+	"github.com/BladenWard/melee-api/types"
 )
 
 func main() {
@@ -15,14 +16,16 @@ func main() {
 	seedFlag := flag.Bool("seed", false, "Seed the database")
 	flag.Parse()
 
-	server := server.NewServer(*listenAddr)
-
-	db := db.Init()
+	store := db.Init()
 	if *seedFlag {
-		// TODO: Seed the database
-		seed.Seed(db)
+		seed.Seed(store)
 	}
 
-	fmt.Println("Listening on", server.ListenAddr)
+	char := types.Character{}
+	store.DB.First(&char, 3)
+	fmt.Println(char.Name)
+	fmt.Println(char.Grabs)
+	server := server.NewServer(*listenAddr, store)
+	fmt.Println("Server running on port:", server.ListenAddr)
 	log.Fatal(server.Start())
 }
