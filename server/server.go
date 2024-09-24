@@ -4,7 +4,6 @@ import (
 	"strconv"
 
 	"github.com/BladenWard/melee-api/db"
-	"github.com/BladenWard/melee-api/types"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -65,8 +64,10 @@ func (s *Server) NewApi(e *echo.Echo) {
 		})
 
 		char.GET("/name/:name", func(c echo.Context) error {
-			retrievedChar := types.Character{}
-			s.store.GetCharacterByName(c.Param("name"))
+			retrievedChar, err := s.store.GetCharacterByName(c.Param("name"))
+			if err != nil {
+				return c.JSON(404, err)
+			}
 			return c.JSON(200, retrievedChar)
 		})
 	}

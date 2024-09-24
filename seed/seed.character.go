@@ -38,8 +38,8 @@ var charList = []string{
 }
 
 func SeedCharacters(db *db.DB) {
-	char := types.Character{}
 	for i := 0; i < 5; i++ {
+		char := types.Character{}
 		fmt.Println("Seeding character " + charList[i] + "...")
 		seedCharacter(db, &char, i)
 		fmt.Println(charList[i] + " seeded. ID: " + fmt.Sprint(char.ID))
@@ -53,7 +53,7 @@ func seedCharacter(db *db.DB, character *types.Character, id int) {
 	}
 	characterJson := string(characterFile)
 
-	types.SeedCharacterStructure(id, character, &characterJson)
+	character.SerializeStructure(id, &characterJson)
 
 	db.Create(&character)
 }
