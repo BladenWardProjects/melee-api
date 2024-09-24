@@ -207,15 +207,15 @@ func (c *Character) seedDodges(dodgeMap []interface{}) {
 	}
 }
 
-func SeedCharacterStructure(charId int, character *Character, characterJson *string) {
+func (c *Character) SerializeStructure(charId int, characterJson *string) {
 	infoMap := map[string]interface{}{}
 	json.Unmarshal([]byte(*characterJson), &infoMap)
 
-	character.seedStats(charId, infoMap)
-	character.seedGroundAttacks(infoMap["ground"].([]interface{}))
-	character.seedAerials(infoMap["aerial"].([]interface{}))
-	character.seedSpecials(infoMap["special"].([]interface{}))
-	character.seedGrabs(infoMap["grab"].([]interface{}))
-	character.seedThrows(infoMap["throw"].([]interface{}))
-	character.seedDodges(infoMap["dodge"].([]interface{}))
+	c.seedStats(charId, infoMap)
+	c.seedGroundAttacks(infoMap["ground"].([]interface{}))
+	c.seedAerials(infoMap["aerial"].([]interface{}))
+	c.seedSpecials(infoMap["special"].([]interface{}))
+	c.seedGrabs(infoMap["grab"].([]interface{}))
+	c.seedThrows(infoMap["throw"].([]interface{}))
+	c.seedDodges(infoMap["dodge"].([]interface{}))
 }
