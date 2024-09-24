@@ -3,8 +3,8 @@ package types
 import "database/sql"
 
 type Character struct {
-	Name           string         `json:"name"`
 	ID             uint           `json:"id" gorm:"primaryKey,autoIncrement"`
+	Name           string         `json:"name"`
 	Weight         uint           `json:"weight"`
 	FastfallSpeed  float64        `json:"fastfall_speed"`
 	DashSpeed      float64        `json:"dash_speed"`
@@ -19,44 +19,6 @@ type Character struct {
 	Grabs          []Grab         `json:"grab" gorm:"serializer:json;foreignKey:CharacterID"`
 	Throws         []Throw        `json:"throw" gorm:"serializer:json;foreignKey:CharacterID"`
 	Dodges         []Dodge        `json:"dodge" gorm:"serializer:json;foreignKey:CharacterID"`
-}
-
-type Move interface {
-	GetMoveByName(string) interface{}
-}
-
-func (c *Character) GetMoveByName(name string) interface{} {
-	for _, move := range c.GroundAttacks {
-		if move.Name == name {
-			return move
-		}
-	}
-	for _, move := range c.Aerials {
-		if move.Name == name {
-			return move
-		}
-	}
-	for _, move := range c.Specials {
-		if move.Name == name {
-			return move
-		}
-	}
-	for _, move := range c.Grabs {
-		if move.Name == name {
-			return move
-		}
-	}
-	for _, move := range c.Throws {
-		if move.Name == name {
-			return move
-		}
-	}
-	for _, move := range c.Dodges {
-		if move.Name == name {
-			return move
-		}
-	}
-	return nil
 }
 
 // TODO: List the missing moves and how to add them
