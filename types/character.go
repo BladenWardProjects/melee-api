@@ -1,5 +1,7 @@
 package types
 
+import "database/sql"
+
 type Character struct {
 	Name           string         `json:"name"`
 	ID             uint           `json:"id" gorm:"primaryKey,autoIncrement"`
@@ -57,31 +59,33 @@ func (c *Character) GetMoveByName(name string) interface{} {
 	return nil
 }
 
+// TODO: List the missing moves and how to add them
+// TODO: Change pointers to a sql null type
 type GroundAttack struct {
-	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
-	Name        string `json:"name"`
-	Start       uint   `json:"start"`
-	End         uint   `json:"end"`
-	TotalFrames *uint  `json:"frames"`
-	IasaFrames  *uint  `json:"iasa_frames"`
-	ShieldStun  uint   `json:"shield_stun"`
-	BaseDamage  uint   `json:"base_damage"`
-	WeakDamage  *uint  `json:"weak_damage"`
+	ID          uint          `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
+	Name        string        `json:"name"`
+	Start       sql.NullInt16 `json:"start"`
+	End         uint          `json:"end"`
+	TotalFrames *uint         `json:"frames"`
+	IasaFrames  *uint         `json:"iasa_frames"`
+	ShieldStun  sql.NullInt16 `json:"shield_stun"`
+	BaseDamage  uint          `json:"base_damage"`
+	WeakDamage  *uint         `json:"weak_damage"`
 	CharacterID uint
 }
 
 type Aerial struct {
-	ID          uint   `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
-	Name        string `json:"name"`
-	Start       uint   `json:"start"`
-	End         *uint  `json:"end"`
-	TotalFrames *uint  `json:"frames"`
-	ShieldStun  uint   `json:"shield_stun"`
-	BaseDamage  uint   `json:"base_damage"`
-	WeakDamage  *uint  `json:"weak_damage"`
-	LandingLag  uint   `json:"landing_lag"`
-	LCancelLag  uint   `json:"l_cancel_lag"`
-	AutoCancel  *int   `json:"auto_cancel"`
+	ID          uint          `json:"id,omitempty" gorm:"primaryKey,unique"`
+	Name        string        `json:"name"`
+	Start       uint          `json:"start"`
+	End         *uint         `json:"end"`
+	TotalFrames *uint         `json:"frames"`
+	ShieldStun  uint          `json:"shield_stun"`
+	BaseDamage  uint          `json:"base_damage"`
+	WeakDamage  *uint         `json:"weak_damage"`
+	LandingLag  uint          `json:"landing_lag"`
+	LCancelLag  sql.NullInt16 `json:"l_cancel_lag"`
+	AutoCancel  *int          `json:"auto_cancel"`
 	CharacterID uint
 }
 
