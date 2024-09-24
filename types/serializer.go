@@ -21,6 +21,7 @@ func (c *Character) seedStats(charId int, infoMap map[string]interface{}) {
 }
 
 func (c *Character) seedGroundAttacks(groundMap []interface{}) {
+	c.GroundAttacks = []GroundAttack{}
 	groundAttackId := 0
 	for _, ground := range groundMap {
 		groundAttack := GroundAttack{}
@@ -59,6 +60,7 @@ func (c *Character) seedGroundAttacks(groundMap []interface{}) {
 }
 
 func (c *Character) seedAerials(aerialMap []interface{}) {
+	c.Aerials = []Aerial{}
 	aerialAttackId := 0
 	for _, aerial := range aerialMap {
 		aerialAttack := Aerial{}
@@ -95,6 +97,7 @@ func (c *Character) seedAerials(aerialMap []interface{}) {
 }
 
 func (c *Character) seedSpecials(specialMap []interface{}) {
+	c.Specials = []Special{}
 	specialAttackId := 0
 	for _, special := range specialMap {
 		specialAttack := Special{}
@@ -134,6 +137,7 @@ func (c *Character) seedSpecials(specialMap []interface{}) {
 }
 
 func (c *Character) seedGrabs(grabMap []interface{}) {
+	c.Grabs = []Grab{}
 	grabId := 0
 	for _, grab := range grabMap {
 		grabAttack := Grab{}
@@ -152,6 +156,7 @@ func (c *Character) seedGrabs(grabMap []interface{}) {
 }
 
 func (c *Character) seedThrows(throwMap []interface{}) {
+	c.Throws = []Throw{}
 	throwId := 0
 	for _, throw := range throwMap {
 		throwAttack := Throw{}
@@ -182,6 +187,7 @@ func (c *Character) seedThrows(throwMap []interface{}) {
 }
 
 func (c *Character) seedDodges(dodgeMap []interface{}) {
+	c.Dodges = []Dodge{}
 	dodgeId := 0
 	for _, dodge := range dodgeMap {
 		dodgeAttack := Dodge{}
