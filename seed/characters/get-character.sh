@@ -40,7 +40,7 @@ curl -k -s https://meleeframedata.com/$CHARACTER_URL | \
 sed -E "s/<\/*div( class=[\"'].*[\"'])?>//g" | \
 grep -v \-e "<" -e "{" -e "}" -e ";" -e "function" | \
 sed "s/^[[:space:]]*//g" | sed "/^[[:space:]]*$/d" | grep -v "Notes" | \
-sed "s/Damage/Damage\n/g" | sed '/\.0$/N;s/\n/ /' | sed -n '/\+/q;p' | \
+sed "s/Damage/Damage\n/g" | sed -r '/^[[:digit:]]+\.0$/N;s/\n/ /' | sed -n '/\+/q;p' | \
 
 # FIX: The ampersand in the name of Mr. Game & Watch does not play nice with sed
 # so this is the workaround
@@ -118,10 +118,10 @@ case "$CHARACTER" in
         sed -r "s/^.*% Base Damage$/    frames: 47/g" | sed -r "/^Frame Startup$/d"
         ;;
     "marth"|"roy")
-        sed -r "/^.*side_b:/d" | sed -r "/^.*% Base Damage$/d" | sed -r "/^Frame Startup$/d"
+        sed -r "/^.*- name: side_b/d" | sed -r "/^.*% Base Damage$/d" | sed -r "/^Frame Startup$/d"
         ;;
     "mr._game_&_watch")
-        sed -r "/^.*side_b:/d" | sed -r "/^.*% Base Damage$/d" | sed -r "/^Frame Startup$/d"
+        sed -r "/^.*- name: side_b/d" | sed -r "/^.*% Base Damage$/d" | sed -r "/^Frame Startup$/d"
         ;;
     "pikachu")
         sed -r "/^.*Active Frames 13-.*$/d" | sed -r "/^Frame Startup$/d"
