@@ -38,7 +38,7 @@ var charList = []string{
 }
 
 func SeedCharacters(db *db.DB) {
-	for i := 0; i < 5; i++ {
+	for i := 0; i < len(charList); i++ {
 		char := types.Character{}
 		fmt.Println("Seeding character " + charList[i] + "...")
 		seedCharacter(db, &char, i)
