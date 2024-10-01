@@ -43,32 +43,48 @@ func (s *Server) Greeting(c echo.Context) error {
 	return c.String(200, "Welcome to the Super Smash Bros. Melee API!")
 }
 
+func makeJsonRespFromName(name string, c echo.Context, db db.Storage) error {
+	character, err := db.GetCharacterByName(name)
+	if err != nil {
+		return c.JSON(404, err)
+	}
+	return c.JSON(200, character)
+}
+
+func makeJsonRespFromId(id uint, c echo.Context, db db.Storage) error {
+	character, err := db.GetCharacterByID(id)
+	if err != nil {
+		return c.JSON(404, err)
+	}
+	return c.JSON(200, character)
+}
+
 func (s *Server) NewApi(e *echo.Echo) {
 	char := e.Group("/character")
 	{
 		char.GET("", func(c echo.Context) error {
-			return c.String(200, "All characters")
+			characters, err := s.store.GetCharacters()
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, characters)
 		})
 
 		char.GET("/", func(c echo.Context) error {
-			return c.String(200, "All characters")
+			characters, err := s.store.GetCharacters()
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, characters)
 		})
 
 		char.GET("/:id", func(c echo.Context) error {
-			id, _ := strconv.Atoi(c.Param("id"))
-			character, err := s.store.GetCharacterByID(uint(id))
+			id, err := strconv.Atoi(c.Param("id"))
 			if err != nil {
-				return c.JSON(404, err)
+				return makeJsonRespFromName(c.Param("id"), c, s.store)
+			} else {
+				return makeJsonRespFromId(uint(id), c, s.store)
 			}
-			return c.JSON(200, character)
-		})
-
-		char.GET("/name/:name", func(c echo.Context) error {
-			retrievedChar, err := s.store.GetCharacterByName(c.Param("name"))
-			if err != nil {
-				return c.JSON(404, err)
-			}
-			return c.JSON(200, retrievedChar)
 		})
 	}
 
