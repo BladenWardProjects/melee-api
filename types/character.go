@@ -21,8 +21,6 @@ type Character struct {
 	Dodges         []Dodge        `json:"dodge" gorm:"serializer:json;foreignKey:CharacterID"`
 }
 
-// TODO: List the missing moves and how to add them
-// TODO: Fix moveIds
 type GroundAttack struct {
 	ID          uint          `json:"id,omitempty" gorm:"primaryKey,autoIncrement"`
 	Name        string        `json:"name"`
