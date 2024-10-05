@@ -37,7 +37,7 @@ var charList = []string{
 	"zelda",
 }
 
-func SeedCharacters(db *db.DB) {
+func seedCharacters(db *db.DB) {
 	for i := 0; i < len(charList); i++ {
 		char := types.Character{}
 		fmt.Println("Seeding character " + charList[i] + "...")
