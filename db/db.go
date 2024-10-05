@@ -32,6 +32,8 @@ func Init() *DB {
 		&types.Grab{},
 		&types.Throw{},
 		&types.Dodge{},
+
+		&types.Song{},
 	)
 	if err != nil {
 		panic("failed to auto migrate: " + err.Error())
