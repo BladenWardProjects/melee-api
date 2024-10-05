@@ -88,6 +88,38 @@ func (s *Server) NewApi(e *echo.Echo) {
 		})
 	}
 
+	song := e.Group("/song")
+	{
+		song.GET("", func(c echo.Context) error {
+			songs, err := s.store.GetSongs()
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, songs)
+		})
+
+		song.GET("/", func(c echo.Context) error {
+			songs, err := s.store.GetSongs()
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, songs)
+		})
+
+		song.GET("/:id", func(c echo.Context) error {
+			id, err := strconv.Atoi(c.Param("id"))
+			if err != nil {
+				return c.JSON(404, err)
+			}
+
+			song, err := s.store.GetSongByID(uint(id))
+			if err != nil {
+				return c.JSON(404, err)
+			}
+			return c.JSON(200, song)
+		})
+	}
+
 	stage := e.Group("/stage")
 	{
 		stage.GET("", func(c echo.Context) error {
