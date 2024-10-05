@@ -8,4 +8,5 @@ type Storage interface {
 	GetCharacters() ([]types.Character, error)
 	GetSongs() ([]types.Song, error)
 	GetSongByID(id uint) (types.Song, error)
+	GetSongByTitle(title string) (types.Song, error)
 }
