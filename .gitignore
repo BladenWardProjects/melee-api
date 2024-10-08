@@ -7,3 +7,5 @@ tmp/
 *.json
 
 TODO.md
+
+.env

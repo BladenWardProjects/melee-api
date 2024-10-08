@@ -2,7 +2,9 @@ package db
 
 import (
 	"fmt"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -15,7 +17,14 @@ type DB struct {
 }
 
 func Init() *DB {
-	db, err := gorm.Open(postgres.Open("host=localhost port=65432 user=postgres password=postgres dbname=postgres sslmode=disable TimeZone=UTC"), &gorm.Config{
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
+	db_user := os.Getenv("POSTGRES_USER")
+	db_pass := os.Getenv("POSTGRES_PASSWORD")
+	db_name := os.Getenv("POSTGRES_DB")
+	db, err := gorm.Open(postgres.Open("host=localhost port=65432 user="+db_user+" password="+db_pass+" dbname="+db_name+" sslmode=disable TimeZone=UTC"), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
