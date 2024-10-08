@@ -14,6 +14,7 @@ RUN go build -o /go/bin/api
 
 SHELL ["/bin/bash", "-c"]
 RUN ./seed/characters/seed-characters.sh
+RUN ./seed/songs/get-songs.sh
 
 EXPOSE 3030
 
