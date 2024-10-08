@@ -21,3 +21,21 @@ func (db *DB) GetCharacters() ([]types.Character, error) {
 	err := db.Find(&characters).Error
 	return characters, err
 }
+
+func (db *DB) GetSongs() ([]types.Song, error) {
+	var songs []types.Song
+	err := db.Find(&songs).Error
+	return songs, err
+}
+
+func (db *DB) GetSongByID(id uint) (types.Song, error) {
+	var song types.Song
+	err := db.First(&song, id).Error
+	return song, err
+}
+
+func (db *DB) GetSongByTitle(title string) (types.Song, error) {
+	var song types.Song
+	err := db.Where("title = ?", title).First(&song).Error
+	return song, err
+}

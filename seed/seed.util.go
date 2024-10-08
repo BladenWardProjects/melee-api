@@ -14,6 +14,7 @@ func DROP_TABLES(db *db.DB) {
 		&types.Grab{},
 		&types.Throw{},
 		&types.Dodge{},
+		&types.Song{},
 	)
 	if err != nil {
 		panic("failed to drop tables: " + err.Error())
@@ -26,5 +27,6 @@ func DROP_TABLES(db *db.DB) {
 		&types.Grab{},
 		&types.Throw{},
 		&types.Dodge{},
+		&types.Song{},
 	)
 }

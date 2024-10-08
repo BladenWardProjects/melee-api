@@ -11,7 +11,8 @@ func Seed(db *db.DB) {
 
 	DROP_TABLES(db)
 
-	SeedCharacters(db)
+	seedCharacters(db)
+	seedSongs(db)
 
 	fmt.Println("Finished seeding database.")
 }
