@@ -18,4 +18,4 @@ COPY --from=builder /go/bin/api /go/bin/api
 
 EXPOSE 3030
 
-CMD ["/go/bin/api"]
+ENTRYPOINT ["/go/bin/api", "--seed"]
