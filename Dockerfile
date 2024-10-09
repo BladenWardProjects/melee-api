@@ -1,21 +1,21 @@
-FROM golang:alpine AS builder
+FROM golang:alpine
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git bash yq curl sed
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-
-RUN go mod download
+# COPY go.mod go.sum ./
 
 COPY . .
 
+RUN go mod download
+
 RUN go build -o /go/bin/api
 
-FROM alpine:latest
-
-COPY --from=builder /go/bin/api /go/bin/api
+SHELL ["/bin/bash", "-c"]
+RUN ./seed/characters/seed-characters.sh
+RUN ./seed/songs/get-songs.sh
 
 EXPOSE 3030
 
-CMD ["/go/bin/api"]
+ENTRYPOINT ["/go/bin/api", "--seed"]

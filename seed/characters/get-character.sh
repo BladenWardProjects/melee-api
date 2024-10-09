@@ -42,8 +42,6 @@ grep -v \-e "<" -e "{" -e "}" -e ";" -e "function" | \
 sed "s/^[[:space:]]*//g" | sed "/^[[:space:]]*$/d" | grep -v "Notes" | \
 sed "s/Damage/Damage\n/g" | sed -r '/^[[:digit:]]+\.0$/N;s/\n/ /' | sed -n '/\+/q;p' | \
 
-# FIX: The ampersand in the name of Mr. Game & Watch does not play nice with sed
-# so this is the workaround
 if [ "$CHARACTER" = "mr._game_&_watch" ]; then
 { printf "name: mr._game_&_watch\n" ; cat; }
 else
@@ -105,7 +103,6 @@ sed -r "s/^Yes$/true/g" | sed -r "s/^No$/false/g" | sed -r "s/^(true|false)$/wal
 sed -r "/^Miscellaneous Info$/d" | sed -r "/^Wall Jump:.*$/d" | sed -r "/^Active Frames 32-$/d" | sed -r "/^[[:space:]]*$/d" | \
 sed -r "/^Total Frames$/d" | sed -r "/shield_stun: 0/d" | sed -r "/^.*ACTIVE_FRAMES_HERE$/d" | \
 
-# FIX: Character specific alterations
 case "$CHARACTER" in
     "sheik")
         sed -r "s/^None Frames Landing Lag$/    landing_lag: 20/g" | sed -r "s/^-1 L-Cancel Lag$/    lcancel_lag: 10/g"

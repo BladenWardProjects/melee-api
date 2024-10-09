@@ -17,14 +17,14 @@ type DB struct {
 }
 
 func Init() *DB {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
+	godotenv.Load()
+
+	db_host := os.Getenv("DB_HOST")
+	db_port := os.Getenv("DB_PORT")
 	db_user := os.Getenv("POSTGRES_USER")
 	db_pass := os.Getenv("POSTGRES_PASSWORD")
 	db_name := os.Getenv("POSTGRES_DB")
-	db, err := gorm.Open(postgres.Open("host=localhost port=65432 user="+db_user+" password="+db_pass+" dbname="+db_name+" sslmode=disable TimeZone=UTC"), &gorm.Config{
+	db, err := gorm.Open(postgres.Open("host="+db_host+" port="+db_port+" user="+db_user+" password="+db_pass+" dbname="+db_name+" sslmode=disable TimeZone=UTC"), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
