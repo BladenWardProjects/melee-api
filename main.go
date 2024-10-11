@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/BladenWard/melee-api/db"
-	"github.com/BladenWard/melee-api/seed"
+	"github.com/BladenWard/melee-api/db/seed"
 	"github.com/BladenWard/melee-api/server"
 )
 
