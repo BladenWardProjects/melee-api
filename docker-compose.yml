@@ -15,6 +15,9 @@ services:
     networks:
       - frontend
       - backend
+    deploy:
+      mode: replicated
+      replicas: 3
   db:
     image: postgres:alpine
     environment:
