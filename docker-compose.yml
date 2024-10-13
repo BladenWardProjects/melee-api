@@ -15,10 +15,6 @@ services:
     networks:
       - frontend
       - backend
-    deploy:
-      mode: replicated
-      replicas: 3
-    container_name: api
   db:
     image: postgres:alpine
     environment:
